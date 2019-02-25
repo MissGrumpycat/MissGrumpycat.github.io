@@ -1,0 +1,516 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">	
+	<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		text-color: #434343;}
+		
+		p{
+			font-family: Arial, "Open Sans";
+			text-align: center;
+			text-align: justify;
+			color: #434343;
+			line-height: 1.5em;}
+		
+		h1{
+			font-family: Georgia;
+			text-align: center;}
+	
+		html, body {
+			height: 100%;
+		}
+		
+		body{
+			display: flex;
+			flex-direction: column;
+		}
+		
+	nav {
+	  width: 100%;
+	  background-color: #FFFFFF;}
+		
+		
+	  nav a {
+		display: block; 
+		float: right;
+		font-family: "Open Sans", Arial;
+		font-size: 20px;
+		color: #434343;
+		padding-top: 10px;
+		padding-right: 30px;
+		padding-bottom: 10px;
+		padding-left: 10px;
+		text-decoration: none;
+		text-align: center;
+		}
+
+	  nav a:hover {background-color: #CCCCCC;}
+
+		.responsive {
+			height: auto;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			
+}
+		#bigpic{
+			width: 100%;
+		}
+		
+	
+		.story {
+		text-align: center;
+		padding: 20px;
+			font-family: "Arial";
+			padding-top: 60px;
+			padding-bottom: 50px;
+			color: #434343;}
+	
+		
+		.header {
+			text-align: center;
+			font-family: Georgia;
+			font-size: 30px;
+			color: #434343;
+		}
+	
+		.smallerheader {
+			text-align: center;	
+			padding: 20px;
+			font-family: "Arial";
+			color: #434343;
+			padding-bottom: 50px;
+		}
+
+		.introtext {
+			font-family: "Open Sans", Arial;
+			color: #434343;
+			width: 50%;
+			text-align: justify;
+			margin: 0 auto;
+			padding-bottom: 60px;
+			line-height: 1.5em;	
+		}
+		
+		.bannerpic {
+			width: 50%;
+			margin: 0 auto;
+			padding-top: 5%;
+		}
+		
+		/* Parallax Section */
+		.banner {
+			background-image: url("about me.jpg");
+			height: 400px;
+			background-attachment: fixed;
+			background-size: 100%;
+			background-repeat: no-repeat;
+		}
+		.parallax {
+			color: #FFFFFF;
+			text-align: right;
+			padding-right: 100px;
+			padding-top: 110px;
+			letter-spacing: 2px;
+			margin-top: 0px;
+			font-family: Georgia,Constantia, "Lucida Bright", "DejaVu Serif",  "serif";
+		}
+		.parallax_description {
+			color: #FFFFFF;
+			text-align: right;
+			padding-right: 100px;
+			width: 25%;
+			float: right;
+			font-weight: lighter;
+			line-height: 23px;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			margin-left: 0px;
+			font-family: Georgia,Constantia, "Lucida Bright", "DejaVu Serif",  "serif";
+			}
+		
+		.btn {
+			background-color: #B5BBBE;
+			border: 1px solid #000000;
+			color: black;
+			padding: 10px 20px;
+			font-size: 45px;
+			cursor: pointer;
+			margin: 20px;
+			border-radius: 50%;}
+		
+		.btn :-moz-focus-inner {
+		 border: none;}
+		
+		.active {
+			background-color: #FFFFFF;}
+		
+		
+		.btn-group{
+				bottom: -50px;
+				left: 50%;
+    			transform: translate(-50%, 0);
+				position: absolute;
+				z-index: 2;}
+		
+		.banner-and-btn {position: relative}
+		
+			/* Darker background on mouse-over */
+			.btn:hover {
+			  background-color: grey;
+			}
+		
+		.metacontent {position: relative;}
+		
+		.content {
+			text-align: center;
+			font-size: 20px;
+		}
+		
+		#charaID{
+			padding-top: 10%;
+			padding-bottom: 10%;
+		}
+		
+		.aboutme {
+			width: 50%;
+			margin: 0 auto;
+			text-align: center;
+			line-height: 1.5em;
+		}
+		
+		#skillsID {
+			display: none;
+			margin: 0 auto;
+			text-align: center;	
+		}
+		
+		#storyID {
+			padding-top: 10%;
+			display: none;
+			margin: 0 auto;
+			text-align: center;
+			padding-left: 20%;
+			padding-right: 20%;
+			padding-bottom: 10%;	
+		}
+		
+		
+		
+		.tablestyle {
+			border-spacing: 1rem;
+			width: 75%;
+		}
+		
+		td {
+			text-align: justify;
+			padding: 10px;
+			font-family: Arial, "Open Sans";
+			color: #434343;
+		}
+		#storyh1, #storyh2, #storyh3 {
+			text-align: center;
+			font-family: Georgia, Constantia, "Lucida Bright", "DejaVu Serif",  "serif";
+		}
+		
+		
+		.footercontainer{
+			background-color: #B5BBBE;
+			height: 300px;
+			flex-shrink: 0;
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
+		
+		.contact{
+			
+			padding-top: 5%;
+			padding-left: 5%;
+			
+
+		}
+		
+		.contacttitle{
+			font-size: 25px;
+			color: #FFFFFF;
+		}
+		
+		.contactdetails{
+			line-height: 1.5em;
+			color: #FFFFFF;
+			font-size: 20px;
+		}
+
+		.footer {
+			bottom: 0;
+			width: 100%;
+			height: auto;
+			background-color: #434343;
+		}
+		
+		.copyrighttext {
+			text-align: center;
+			color: white;
+			padding: 5px;
+			color: #B5BBBE;
+		}
+
+
+		.tillfooter{
+			flex: 1 0 auto;}
+		
+		
+		#bktotop {
+		  display: none; /* Hidden by default */
+		  position: fixed; /* Fixed/sticky position */
+		  bottom: 20px; /* Place the button at the bottom of the page */
+		  right: 30px; /* Place the button 30px from the right */
+		  z-index: 99; /* Make sure it does not overlap */
+		  border: none; /* Remove borders */
+		  outline: none; /* Remove outline */
+		  background-color: rgba(0,0,0,0); /* Set a background color */
+		  color: white; /* Text color */
+		  cursor: pointer; /* Add a mouse pointer on hover */
+		  padding: 15px 15px; /* Some padding */
+		   /* Increase font size */
+		}
+		
+		#arrowup{
+			color: #434343;
+			font-size: 25px;
+		}
+
+	</style>
+
+</head>
+<body>
+	<div class="tillfooter">
+<!--nav bar-->		
+	<div>
+		<nav>
+			<a href="#footer">Contact</a>	
+			<a href="#aboutme">About me</a>
+		    <a href="#intro">Intro</a>	
+		</nav>
+	
+<!--headerpic-->
+	</div>
+	 <img src="coverpicsm.jpg" alt="UIX" class="responsive" id="bigpic"> 
+	<a name ="intro"></a>	
+<!--intro text-->
+	<div class="story"><h3>"A FIRST HELLO"</h3></div>
+	
+				<div class="header"><h1>Hi. I'm Mary-Lou.</h1></div>
+				<div class ="smallerheader">
+					<h2>UI UX Designer in the making</h2>
+		</div>	
+	<div class="introtext">
+		<p>The big purpose of a software is to help people. Often there is a huge gap between real and ideal. In very severe cases the technology which is supposed to help can even lead to a technology-tourette-syndrome. It is my personal mission to reduce this risk by creating a pleasant user experience and well designed user interfaces. It might appear as a never ending quest observing our surroundings. But with the knowledge of psychology, user centered design processes, strong will power, teamwork and a feeling for aesthetics it shall be possible!
+		</p>
+	</div>
+		
+		<!-- Parallax Section -->
+		  <div class="banner">
+			<h2 class="parallax">ABOUT ME.</h2>
+			<p class="parallax_description">Let me introduce myself further. Learn more about my skills, my life so far and my personality</p>
+		  </div> 
+	
+<!--banner and buttons-->
+	<div class="banner-and-btn">	
+		<div class="bannerpic">
+		<img src="bannerlifepure.jpg" alt="designlife" width="100%" id="bannerpic">
+		</div>
+		<div class="btn-group" id="btn-grp">
+			<button class="btn active" onClick="show('charaID')"><i class="fa fa-user"></i></button>
+			<button class="btn" onClick="show('storyID')" ><i class="fa fa-book"></i></button>
+			<button class="btn" onClick="show('skillsID')"><i class="fa fa-pencil"></i></button>
+			</div>
+	</div>
+		
+<!--scrollup button-->
+<button onclick="topFunction()" id="bktotop" title="Go to top"><i class="fa fa-arrow-up" id="arrowup"></i></button> 
+
+<!--content section-->
+<div class="metacontent">
+	<a name="aboutme"></a>
+
+			<div class="allcontent" id="content">				
+			<div class="content" id="charaID">
+				<h1>20 words about me.</h1>
+				<br>
+			<!--chara-->
+				<section class="aboutme">
+					<p>humour. conscientiousness. books. enthusiasms. punctuality. travel. tea. astronomy. craziness. imagination. organization. technologies. willpower. creativity. dance. helpfulness. design. openness. psychology. empathy</p>
+				</section>			
+			</div>
+			<!--CV-->
+			<div class="content" id="storyID">
+				<h1>My story so far</h1>
+				<br>
+				<p id="storyh1">studies</p>
+				 <table class="tablesyle" id="tb1">
+					 <tr>
+					 <td>
+						 </td>
+					 <td>
+						 </td>
+					 </tr>
+				<tr>
+					 <td>Since 2016
+					  </td>
+					<td><b>"human-computer-interaction"</b><br>
+						B.c. of science, main subjects: computer science, psychology and UI/UX-knowledge
+					  </td>
+					 </tr>
+				</table> 
+				
+				<br>
+				<br>
+				
+				<p id="storyh2">internships, school and jobs</p>
+				<br>
+				<table class="tablesyle" id="tb2">
+					<tr>
+					 <td>
+						 </td>
+					 <td>
+						 </td>
+					 </tr>
+					<tr>
+					<td>Since 2018</td>
+					<td><b>CHOCOVERSUM by Hachez</b><br>
+						chocolate-tourguide, guiding groups of up to 40 people through the exhibition as a chocolate expert</td>
+				  </tr>
+				  <tr>
+					<td>2015-2016</td>
+					<td><b>BFD and FSJ, AWO</b><br>
+						septemer till april: daycare for children with disabilities <br>
+						april till september: urban district house "Horner Freiheit e.V."" - coordination</td>
+				  </tr>
+					<tr>
+					<td>Spring 2014</td>
+						<td><b>internship Lecturio GmbH</b> <br> 
+						insights in different areas of a start-up, e.g. online-marketing and graphic design</td>
+					</tr>
+				<tr>
+					<td>2012-2015
+					</td>
+					<td><b>WWF JUGEND Redaktion</b><br> honorary post, writing articles, organizational matters
+					</td>
+				</tr>
+				<tr>
+					<td>Autumn 2012
+					</td>
+					<td><b>internship OTTO GmbH & Co KG</b><br> assistance in the photo studio
+					</td>
+				</tr>
+				<tr>
+					<td>Since 2010
+					</td>
+					<td> commissions design and paintings, e.g. works: T-Shirt-motives, portraits, poster-/flyer/logo-/bookcoverdesign, fanart, digital art
+					</td>
+				</tr>
+				</table>
+				<br>
+				<br>
+				
+				<p id="storyh3">childhood and school</p>
+				 <table class="tablesyle" id="tb3">
+					 <tr>
+					 <td>
+						 </td>
+					 <td>
+						 </td>
+					 </tr>
+				  <tr>
+					<td>2007-2015</td>
+					<td><b>Gymnasium Wentorf ("Kunstprofil")</b>, Abitur (1,8)<br>
+						  School exchange: France (2 months, 2011), Chile (2 months, 2013)</td>
+				  </tr>
+					 <tr>
+					 <td>07.08.1996
+					  </td>
+					<td>Birth in Hamburg-Bergedorf
+					  </td>
+					 </tr>
+				</table> 
+			</div>
+			<!--skills-->
+			<div class="content" id="skillsID">
+				<img src="skillstext.jpg" alt="UIX" class="responsive" width="60%" id="skillpic">
+			</div>
+		</div>	
+	</div>			
+</div>			
+	
+	<!--footer section-->
+<div class="footercontainer">
+  <div class="contact">
+				<p class="contacttitle"><b>Contact</b></p>
+				<p class="contactdetails"> <em class="fa fa-envelope-o"></em> &nbsp;mary-lou.ploss@gmx.de<br>
+				  <em class="fa fa-phone"></em> &nbsp; 0151/68190539<br>
+				  <em class="fa fa-home"></em> &nbsp; Röpraredder 43, 21031 Hamburg</p>
+		</div>	
+		</div>
+
+	<a name="footer"></a>
+	<section class="footer">
+		<p class="copyrighttext">© Mary-Lou Ploß </p>
+	</section>
+
+	<!--skrip section-->
+<script type="text/javascript">
+	
+	//button switch content
+	var skillpicheight = document.getElementById("skillpic").height;
+	
+		function show(param_div_id) {
+		var contentlist = document.getElementsByClassName('content');
+		for(var i=0; i < contentlist.length; i++) {
+			contentlist[i].style.display = 'none';
+		}
+    	document.getElementById(param_div_id).style.display = 'block';
+  		}
+	
+	//colour active button
+	var btnContainer = document.getElementById('btn-grp');
+	var btns = btnContainer.getElementsByClassName('btn');
+	
+	for (var i = 0; i < btns.length; i++) {
+				btns[i].addEventListener("click", function() {
+		  var current = document.getElementsByClassName("active");
+		  current[0].className = current[0].className.replace(" active", "");
+		  this.className += " active";
+		  });
+}
+	
+	//back to top button
+	// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+ 
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("bktotop").style.display = "block";
+  } else {
+    document.getElementById("bktotop").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+} 
+	
+	</script>
+					
+</body>
+</html>
