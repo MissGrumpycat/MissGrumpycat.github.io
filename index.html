@@ -113,6 +113,7 @@
 			background-size: 100%;
 			background-repeat: no-repeat;
 		}
+		/*
 		.parallax {
 			color: #FFFFFF;
 			text-align: right;
@@ -136,16 +137,42 @@
 			margin-left: 0px;
 			font-family: Georgia,Constantia, "Lucida Bright", "DejaVu Serif",  "serif";
 			}
+		*/
+		
+		#user{
+			    display: table-cell;
+      			vertical-align: middle; 
+      			text-align: center;
+				height: 90px;
+				width: 90px;
+		}
+		
+		#pencil{
+			display: table-cell;
+      			vertical-align: middle; 
+      			text-align: center;
+				height: 90px;
+				width: 90px;
+		}
+		
+		#book{
+			display: table-cell;
+      			vertical-align: middle; 
+      			text-align: center;
+				height: 90px;
+				width: 90px;
+		}
 		
 		.btn {
 			background-color: #B5BBBE;
 			border: 1px solid #000000;
 			color: black;
-			padding: 10px 20px;
-			font-size: 45px;
+			font-size: 50px;
 			cursor: pointer;
 			margin: 20px;
-			border-radius: 50%;}
+			border-radius: 50%;
+			display: inline-block;}
+		
 		
 		.btn :-moz-focus-inner {
 		 border: none;}
@@ -155,7 +182,7 @@
 		
 		
 		.btn-group{
-				bottom: -50px;
+				bottom: -80px;
 				left: 50%;
     			transform: translate(-50%, 0);
 				position: absolute;
@@ -191,6 +218,7 @@
 			display: none;
 			margin: 0 auto;
 			text-align: center;	
+			padding-top: 50px;
 		}
 		
 		#storyID {
@@ -319,8 +347,8 @@
 		
 		<!-- Parallax Section -->
 		  <div class="banner">
-			<h2 class="parallax">ABOUT ME.</h2>
-			<p class="parallax_description">Let me introduce myself further. Learn more about my skills, my life so far and my personality</p>
+			<!--<h2 class="parallax">ABOUT ME.</h2>
+			<p class="parallax_description">Let me introduce myself further. Learn more about my skills, my life so far and my personality</p>-->
 		  </div> 
 	
 <!--banner and buttons-->
@@ -329,9 +357,9 @@
 		<img src="bannerlifepure.jpg" alt="designlife" width="100%" id="bannerpic">
 		</div>
 		<div class="btn-group" id="btn-grp">
-			<button class="btn active" onClick="show('charaID')"><i class="fa fa-user"></i></button>
-			<button class="btn" onClick="show('storyID')" ><i class="fa fa-book"></i></button>
-			<button class="btn" onClick="show('skillsID')"><i class="fa fa-pencil"></i></button>
+			<button class="btn active" onClick="show('charaID')"><i id="user" class="fa fa-user"></i></button>
+			<button class="btn" onClick="show('storyID')" ><i  id="book" class="fa fa-book"></i></button>
+			<button class="btn" onClick="show('skillsID')"><i id="pencil" class="fa fa-pencil"></i></button>
 			</div>
 	</div>
 		
@@ -436,7 +464,7 @@
 						  School exchange: France (2 months, 2011), Chile (2 months, 2013)</td>
 				  </tr>
 					 <tr>
-					 <td>07.08.1996
+					 <td>07.08.1996 
 					  </td>
 					<td>Birth in Hamburg-Bergedorf
 					  </td>
