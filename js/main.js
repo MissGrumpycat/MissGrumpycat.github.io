@@ -316,8 +316,11 @@ d3.json("./data/unidata.json").then(function(data){
             }).style("font-weight", "normal")
                             
             if (d3.select(this).style('opacity') == 0.99){
+                    d3.select("#details").selectAll("#text").remove();
+                    d3.select("#details").selectAll("a").remove();
                     d3.selectAll("path").style('opacity', 1);
                     d3.selectAll(".nameText").style('opacity', 1);
+                    d3.selectAll(".nameText").style('font-weight', "normal");
                     return;} 
                         
             // filter, change opa of the items that are not selected
@@ -540,7 +543,7 @@ d3.json("./data/unidata.json").then(function(data){
         )
         .attr("fill", "none");
 
-    var lineNumber;
+    var lineconstant;
         
     // text wrap function
     function wrap(text2, width, ringIndex) {
@@ -548,7 +551,7 @@ d3.json("./data/unidata.json").then(function(data){
             words = text.text().split(/\s+/).reverse(),
             word,
             line = [],
-            lineNumber = 0,
+            lineconstant = 0,
             lineHeight = 1.1, // ems
             y = text.attr("y"),
             tspan = text.text(null)
@@ -565,12 +568,12 @@ d3.json("./data/unidata.json").then(function(data){
             tspan = text.append("tspan")
                         .attr("x", 0) 
                         .attr("y", y) 
-                        .attr("dy", ++lineNumber * lineHeight + "em")
+                        .attr("dy", ++lineconstant * lineHeight + "em")
                         .text(word)
         }
         }
         // +1 because if there are no tspans word itself is a line
-        return lineNumber + 1;
+        return lineconstant + 1;
     }
     
             
@@ -594,6 +597,9 @@ d3.json("./data/unidata.json").then(function(data){
                 ;
         })
         .style("text-anchor", function(d, i){
+                var ringItemCount = arcRingIndexSizeDictionary[d.ringIndex];    
+	            if(d.ringIndex == 1 && i <= ringItemCount/2)
+	                    return "start"; 
                 if (d.ringIndex > 1) {
                    return "middle"; 
                 }   
@@ -601,6 +607,8 @@ d3.json("./data/unidata.json").then(function(data){
                     return "start";
                 }})
         .attr("startOffset", function(d, i){ 
+            if(d.ringIndex == 1 && i <= ringItemCount/2) 
+	            return "50%"; 
                 if(d.ringIndex == 1) return "12%";   
                 var ringItemCount = arcRingIndexSizeDictionary[d.ringIndex];
                 if(i > ringItemCount/4 && i < ringItemCount * 3/4)
@@ -623,7 +631,7 @@ d3.json("./data/unidata.json").then(function(data){
             })
             .style('font-family', 'arial')
             .attr('font-size', function(d){
-                if(d.ringIndex > 1){return '14px'} else {
+                if(d.ringIndex > 1){return '13px'} else {
                     return '9px';
                 }})
         .each(function(d) {
@@ -641,65 +649,26 @@ d3.json("./data/unidata.json").then(function(data){
                 d3.select(this).style("cursor", "default")
                 return tip.hide(d, this)
             }) 
-        .attr("active", "false")
-        .attr("hidden", "false")
-        .attr("neutral", "true")
         .on("click", function(d){
             var current = d3.select(this).attr("textName");
             var coops = d3.select(this).attr("textCoop");
             var fb_profs = d3.select(this).attr("text_fb_profs");
 
-            d3.selectAll(".nameText").filter(function(d){
-                return d.data.name == current
-            }).style("font-weight", "bold")
-            d3.selectAll(".nameText").filter(function(d){
-                return d.data.name != current
-            }).style("font-weight", "normal")
-
-        d3.selectAll(".nameText")
-        .attr("active", function(){
-            if (d3.select(this).style('opacity') == "0.3"){
-                return "false";
-            }
-             else if (d3.select(this).style('opacity') == "0.99"){
-                return "true";
-            }
-            else if (d3.select(this).style('opacity') == "1"){
-                return "false";
-            }
-        }).attr("neutral", function(){
-            if (d3.select(this).style("opacity") == "0.3"){
-                return "false"
-            }
-            else if (d3.select(this).style("opacity") == "0.99"){
-                return "false"
-            }
-            else if (d3.select(this).style("opacity") == "1"){
-                return "true"
-            }
-        }).attr("hidden", function(){
-            if (d3.select(this).style("opacity") == "0.3"){
-                return "true"
-
-            }
-            else if (d3.select(this).style("opacity") == "0.99"){
-                return "false"
-            }
-
-            if (d3.select(this).style("opacity") == "1"){
-                return "false"
-            }
-        })
+            console.log(d3.select(this).style("font-weight"))
        
         //reset to normal 
-        if (d3.select(this).attr("active") == "true"){ 
-                console.log("aktiv,nicht neutral oder versteckt")
+        if (d3.select(this).style("font-weight") == 700){ 
+                d3.select("#details").selectAll("#text").remove();
+                d3.select("#details").selectAll("a").remove();
+                console.log("text: reset to normal")
                 d3.selectAll("path").style('opacity', 1)
                 d3.selectAll(".nameText").style('opacity', 1)
+                d3.selectAll(".nameText").style('font-weight', "normal")
                 return;}
+
         // filter, change opa of the items that are not selected
-        else if (d3.select(this).attr("hidden") == "true" || d3.select(this).attr("neutral") == "true" || d3.select(this).attr("active") == "false") { 
-                console.log("nicht aktiv, neutral oder versteckt")
+        else if (d3.select(this).style("font-weight") == 400) { 
+                console.log("make bold and highlight")
                 d3.selectAll("path").style("opacity", 0.99)
                         .filter(function(d) {
                             if (coops != null){  
@@ -733,6 +702,13 @@ d3.json("./data/unidata.json").then(function(data){
                     }
             }).style('opacity', 0.3)
         }
+
+        d3.selectAll(".nameText").filter(function(d){
+            return d.data.name == current
+        }).style("font-weight", "bold")
+        d3.selectAll(".nameText").filter(function(d){
+            return d.data.name != current
+        }).style("font-weight", "normal")
         
         //tooltipdetails
         d3.select("#details").selectAll("#text").remove();
@@ -823,7 +799,18 @@ d3.json("./data/unidata.json").then(function(data){
                     .attr("text-anchor", "start")
                     .style("font-size", "15px")
                     .text("")
-                ;  
+                ; 
+                 
+                
+                if (key == "link"){
+                    //console.log(d.data[key])
+                    var url = d.data[key]
+                    tooltipRow.append("a")
+                        .attr("xlink:href", function(d){return url;})
+                        .append("text")
+                        .text(function(d) {return url;})
+                        .style("font-size", "15px")    
+                } else {
                 tooltipRow.select("text")
                             .style("font-size", function(){
                                 if (key == "name"){
@@ -852,6 +839,7 @@ d3.json("./data/unidata.json").then(function(data){
                                 //console.log( key + linesCount)
                                 lineCountDictionary.push(linesCount);
                             })
+                }
             }
         
         }
@@ -885,8 +873,26 @@ d3.json("./data/unidata.json").then(function(data){
                 if (d.ringIndex > 1 && lineCount > 1)
                 {return 2 * lineCount};
         }
-        })
-        
+    })
+
+    // ROTATE
+    d3.selectAll("text")
+    .attr("transform", function(d, i) {
+    if (d !== undefined) {
+        var ringItemCount = arcRingIndexSizeDictionary[d.ringIndex];
+        if (d.ringIndex == 1 && i <= ringItemCount / 2) {
+            var locationData = this.getBBox();
+            var centerX = locationData.x + (locationData.width / 2);
+            var centerY = locationData.y + (locationData.height / 2);
+
+            var result = 'translate(' + centerX + ',' + centerY + ')';
+            result += 'rotate(180)';
+            result += 'translate(' + (-centerX) + ',' + (-centerY) + ')';
+            return result;
+        }
+    }
+    });
+
     
     // middle text
     gs.append("text")
