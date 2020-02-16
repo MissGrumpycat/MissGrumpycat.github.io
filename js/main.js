@@ -8,7 +8,7 @@ var svg = d3.select("#pie-chart svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .attr("transform", "translate(" + 525 + "," + 450 + ")")
-    .append("g")
+    //.append("g")
    
 var pie = d3.pie()
     .value(function(d){return 1}); 
@@ -181,15 +181,23 @@ d3.json(dataFile).then(function(data){
     var linesLegendCount;
 
     function displayLegend(ring, i){
-        
+
+        function setOpacityFunction(thisElement){
+            if (d3.select(thisElement).style("opacity") == 1) {
+              return setOpacity
+              } else {
+                  return 1
+              }  
+          }
+          
         var legendRow = legend.append("g")
             .attr("transform", "translate(" + 0 + " ," + (i * 40) + ")")
 
         legendRow.append("text")
+            .attr("class", "legend")
             .attr("name", function(d) {
             return ring;
             })
-            .attr("class", "legend")
             .attr("text-anchor", "start")
             .attr("dx", function(){
                 if (ring == "Alle anzeigen" || ring == "Alle verbergen" || ring == "Show all" || ring == "Hide all"){
@@ -211,96 +219,6 @@ d3.json(dataFile).then(function(data){
                 if (ring == "Alle anzeigen" || ring == "Alle verbergen" || ring == "Show all" || ring == "Hide all"){
                     return "bold"}
             })
-            .on("click", function(){
-
-                var current = d3.select(this).attr("name")
-                if (language == "deutsch"){
-                   var currentRingindex = rings.indexOf(current) + 1 
-                } else {
-                    var currentRingindex = ringsEnglish.indexOf(current) + 1 
-                }
-                var setOpacity = 0.2;
-                
-                //show all
-                if (d3.select(this).attr("name") == "Alle anzeigen" || d3.select(this).attr("name") == "Show all"){
-                    d3.selectAll("path").style("opacity", 1);
-                    d3.selectAll(".nameText").style('opacity', 1);
-                    d3.selectAll(".legend").style("opacity", 1);
-                    d3.selectAll(".legendRect").style("opacity", 1); 
-                }
-
-                //hide all
-                if (d3.select(this).attr("name") == "Alle verbergen" || d3.select(this).attr("name") == "Hide all"){
-                    
-                    // hiode all but the inner most ring
-                    d3.selectAll("path").filter(function(d){
-                        var fadedRing = d3.select(this).attr("ringindex") > 0;
-                        return fadedRing
-                    }).style("opacity", setOpacity);
-
-                    d3.selectAll(".nameText").style('opacity', setOpacity);
-
-                    d3.selectAll(".legend").filter(function(d){
-                        var fadedLegend = d3.select(this).attr("name") != "Alle anzeigen" || d3.select(this).attr("name") != "Show all";
-                        return fadedLegend
-                    }).style("opacity", 0.5);
-
-                    d3.selectAll(".legendRect").style("opacity", 0.5); 
-                }
-
-                // blend out the circles
-                if (d3.select(this).attr("name") == current && (d3.select(this).attr("name") != "Alle anzeigen" || d3.select(this).attr("name") != "Show all")
-                && (d3.select(this).attr("name") != "Alle verbergen" || d3.select(this).attr("name") != "Hide all")){
-                    
-                    d3.selectAll("path").filter(function(d) {
-                        var fadedRing = d3.select(this).attr("ringindex") == currentRingindex;
-                        return fadedRing;
-                    }).style("opacity", function(d) {
-                        if (d3.select(this).style("opacity") == 1) {
-                            return setOpacity
-                        } else {
-                            return 1
-                        }
-                    });
-                    
-                    d3.selectAll(".nameText").filter(function(d){
-                        var fadedText = d.ringIndex == currentRingindex
-                        return fadedText;
-                    }).style('opacity', function(d) {
-                        if (d3.select(this).style("opacity") == 1) {
-                            return setOpacity
-                        } else {
-                            return 1
-                        }});
-
-                    d3.select(this).style("opacity", function(){
-                        if (d3.select(this).style("opacity") == 1 && d3.select(this).attr("name") == current) 
-                        {
-                            return 0.5
-                        } 
-                        else {
-                            return 1
-                        }})
-
-                    d3.selectAll(".legendRect").filter(function(d){
-                        var fadedRects = d3.select(this).attr("rectname") == current
-                        return fadedRects;
-                    }).style('opacity', function(d) {
-                        if (d3.select(this).style("opacity") == 1) {
-                            return setOpacity
-                        } else {
-                            return 1
-                        }});
-                };
-                
-                
-            })
-            .on("mouseover", function(d){
-                d3.select(this).style("cursor", "pointer")
-            })
-            .on("mouseout", function(d){
-                d3.select(this).style("cursor", "default")
-            })
             .text(ring)
             .each(function(d){ 
                 linesLegendCount = wrap(this, 150, 0)
@@ -311,7 +229,94 @@ d3.json(dataFile).then(function(data){
                 }  
                 return 16;
             })
-            ;
+            .on("mouseover", function(d){
+                d3.select(this).style("cursor", "pointer")
+            })
+            .on("mouseout", function(d){
+                d3.select(this).style("cursor", "default")
+            })
+            .on("click", function(){
+
+                var current = d3.select(this).attr("name")
+                var setOpacity = 0.2;
+
+                if (language == "deutsch"){
+                   var currentRingindex = rings.indexOf(current) + 1 
+                } else {
+                    var currentRingindex = ringsEnglish.indexOf(current) + 1 
+                } 
+
+                console.log(current)
+                
+                //show all
+                if (current == "Alle anzeigen" || current == "Show all"){
+                    d3.selectAll("path").style("opacity", 1);
+                    d3.selectAll(".nameText").style('opacity', 1);
+                    d3.selectAll(".legend").style("opacity", 1);
+                    d3.selectAll(".legendRect").style("opacity", 1) 
+                }
+
+                //hide all
+                 else if (current == "Alle verbergen" || current == "Hide all"){
+                    // hide all but the inner most ring
+                    d3.selectAll("path").filter(function(d){
+                        var fadedRing = d3.select(this).attr("ringindex") > 0;
+                        return fadedRing
+                    }).style("opacity", setOpacity);
+
+                    d3.selectAll(".nameText").style('opacity', setOpacity);
+
+                    d3.selectAll(".legend").style("opacity", function(d){
+                        if (d3.select(this).attr("name") == "Alle anzeigen" || d3.select(this).attr("name") == "Show all"){
+                            return 1;
+                        } else {
+                            return setOpacity;
+                        }
+                        
+                    })
+
+                    d3.selectAll(".legendRect").style("opacity", setOpacity); 
+                }
+                
+                // blend out the circles
+                else if (current != "Alle anzeigen" || current != "Show all" && current != "Alle verbergen" || current != "Hide all"){
+                    
+                    function setOpacityFunction(thisElement){
+                      if (d3.select(thisElement).style("opacity") == 1) {
+                        return setOpacity
+                        } else {
+                            return 1
+                        }  
+                    } 
+
+                    d3.selectAll("path").filter(function(d) {
+                        var fadedRing = d3.select(this).attr("ringindex") == currentRingindex;
+                        return fadedRing;
+                    }).style("opacity", function(d) {
+                        return setOpacityFunction(this)
+                    });
+                    
+                    d3.selectAll(".nameText").filter(function(d){
+                        var fadedText = d.ringIndex == currentRingindex
+                        return fadedText;
+                    }).style('opacity', function(d) {
+                        return setOpacityFunction(this)
+                    });
+
+                    d3.select(this).style("opacity", function(d){
+                        return setOpacityFunction(this)    
+                    })
+
+                    d3.selectAll(".legendRect").filter(function(d){
+                        var fadedRects = d3.select(this).attr("rectname") == current
+                        return fadedRects;
+                    }).style('opacity', function(d) {
+                        return setOpacityFunction(this)
+                    });
+                };
+            })
+        ;
+            
 
         legendRow.append("rect")
             .attr("class", "legendRect")
@@ -343,53 +348,39 @@ d3.json(dataFile).then(function(data){
                 var setOpacity = 0.2;
 
                 // blend out the circles
-                if (d3.select(this).attr("rectname") == current){
-                    //console.log(d3.select(this).attr("rectname"))
-                    d3.selectAll("path").filter(function(d) {
+                function setOpacityFunction(thisElement){
+                    if (d3.select(thisElement).style("opacity") == 1) {
+                      return setOpacity
+                      } else {
+                          return 1
+                      }  
+                  }
+
+                d3.selectAll("path").filter(function(d) {
                         var fadedRing = d3.select(this).attr("ringindex") == currentRingindex;
                         return fadedRing;
                     }).style("opacity", function(d) {
-                        if (d3.select(this).style("opacity") == 1) {
-                            return setOpacity
-                        } else {
-                            return 1
-                        }
+                        return setOpacityFunction(this)
                     });
                     
                     d3.selectAll(".nameText").filter(function(d){
                         var fadedText = d.ringIndex == currentRingindex
                         return fadedText;
                     }).style('opacity', function(d) {
-                        if (d3.select(this).style("opacity") == 1) {
-                            return setOpacity
-                        } else {
-                            return 1
-                        }});
+                        return setOpacityFunction(this)
+                    });
 
                     d3.select(this).style("opacity", function(){
-                        if (d3.select(this).style("opacity") == 1 && d3.select(this).attr("rectname") == current) {
-                            return 0.5
-                        } 
-                        else {
-                            return 1
-                        }
+                        return setOpacityFunction(this)
                     })
 
                     d3.selectAll(".legend").filter(function(d){
                         var fadedRects = d3.select(this).attr("name") == current
                         return fadedRects;
                     }).style('opacity', function(d) {
-                        if (d3.select(this).style("opacity") == 1) {
-                            return setOpacity
-                        } else {
-                            return 1
-                        }});
-                };
-                
-                
+                        return setOpacityFunction(this)});
+                ;
             }) 
-    
-
     }
     
     if (language == "deutsch"){
